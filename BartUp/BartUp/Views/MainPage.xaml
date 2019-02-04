@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BartUp"
+             x:Class="BartUp.Views.MainPage">
+
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal">
+                <!--<StackLayout HeightRequest="50" BindingContext="{x:Reference _packView}" >
+                    <Label Text="{Binding Path=SelectedItem.Name}"/>
+                    <Label Text="{Binding Path=SelectedItem.Description}"/>
+                </StackLayout>-->
+                <Label Text="{Binding LastUpdated}"/>
+                <Button Command="{Binding RefreshStations}" Text="Refresh" HorizontalOptions="End" />
+            </StackLayout>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding StationEtds}" 
+                      HasUnevenRows="True" x:Name="_stationView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BorderColor="{DynamicResource mainColor}" BackgroundColor="{DynamicResource backgroundColor}" CornerRadius="0">
+                                <StackLayout>
+                                    <Label Text="{Binding StationName}"/>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding Departures}" 
+                                            HasUnevenRows="True" x:Name="_stationView">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame BorderColor="{DynamicResource mainColor}" BackgroundColor="{DynamicResource backgroundColor}" CornerRadius="0">
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="{Binding TowardsStation}" />
+                                                            <Label Text="{Binding DepartureEstimate, StringFormat='in {0:g}'}"/>
+                                                        </StackLayout>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>
